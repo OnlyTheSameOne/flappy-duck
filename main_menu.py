@@ -11,10 +11,10 @@ pygame.display.set_caption("SPIELSTARTER")
 # Hintergrundfarbe
 BACKGROUND_COLOR = (180, 220, 255)
 
-# Buttons definieren
-font = pygame.font.SysFont("Arial", 48, bold=True)
-flappy_button = pygame.Rect(210, 450, 300, 80)
-soccer_button = pygame.Rect(210, 580, 300, 80)
+# Schrift und Buttons definieren
+font = pygame.font.SysFont("Arial", 56, bold=True)
+flappy_button = pygame.Rect(160, 450, 400, 100)
+soccer_button = pygame.Rect(160, 600, 400, 100)
 
 clock = pygame.time.Clock()
 running = True
@@ -26,13 +26,15 @@ while running:
     pygame.draw.rect(screen, (255, 255, 255), flappy_button)
     pygame.draw.rect(screen, (0, 0, 0), flappy_button, 4)
     flappy_text = font.render("Flappy Duck", True, (0, 0, 0))
-    screen.blit(flappy_text, (flappy_button.x + 40, flappy_button.y + 15))
+    flappy_text_rect = flappy_text.get_rect(center=flappy_button.center)
+    screen.blit(flappy_text, flappy_text_rect)
 
     # Fußballspiel Button
     pygame.draw.rect(screen, (255, 255, 255), soccer_button)
     pygame.draw.rect(screen, (0, 0, 0), soccer_button, 4)
     soccer_text = font.render("Fußballspiel", True, (0, 0, 0))
-    screen.blit(soccer_text, (soccer_button.x + 30, soccer_button.y + 15))
+    soccer_text_rect = soccer_text.get_rect(center=soccer_button.center)
+    screen.blit(soccer_text, soccer_text_rect)
 
     pygame.display.update()
     clock.tick(60)
