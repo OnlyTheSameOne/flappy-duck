@@ -1,6 +1,6 @@
 import pygame
 import os
-from buttons import Button
+from src.buttons import Button
 
 class MenuManager:
     def __init__(self, screen):

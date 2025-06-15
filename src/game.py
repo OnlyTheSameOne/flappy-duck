@@ -2,12 +2,12 @@ import pygame
 import sys
 import random
 
-from background import Background
-from duck import Duck
-from pipe import Pipe
-from sound_manager import SoundManager
-from score_manager import ScoreManager
-from menu_manager import MenuManager
+from src.background import Background
+from src.duck import Duck
+from src.pipe import Pipe
+from src.sound_manager import SoundManager
+from src.score_manager import ScoreManager
+from src.menu_manager import MenuManager
 
 
 
