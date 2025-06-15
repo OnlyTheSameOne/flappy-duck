@@ -1,31 +1,53 @@
 import pygame
 import sys
-from src.game import Game
-import TestFinal
+import subprocess
 
+# Fenster & Setup
 pygame.init()
-screen = pygame.display.set_mode((720, 1080))
-pygame.display.set_caption("Spielauswahl")
-font = pygame.font.SysFont(None, 48)
+screen_width, screen_height = 720, 1080
+screen = pygame.display.set_mode((screen_width, screen_height))
+pygame.display.set_caption("SPIELSTARTER")
 
-while True:
-    screen.fill((0, 0, 0))
-    flappy_text = font.render("Flappy Duck starten", True, (255, 255, 255))
-    fussball_text = font.render("Fußballspiel starten", True, (255, 255, 255))
+# Hintergrundfarbe
+BACKGROUND_COLOR = (180, 220, 255)
 
-    flappy_rect = flappy_text.get_rect(center=(360, 400))
-    fussball_rect = fussball_text.get_rect(center=(360, 500))
+# Buttons definieren
+font = pygame.font.SysFont("Arial", 48, bold=True)
+flappy_button = pygame.Rect(210, 450, 300, 80)
+soccer_button = pygame.Rect(210, 580, 300, 80)
 
-    screen.blit(flappy_text, flappy_rect)
-    screen.blit(fussball_text, fussball_rect)
-    pygame.display.flip()
+clock = pygame.time.Clock()
+running = True
 
+while running:
+    screen.fill(BACKGROUND_COLOR)
+
+    # Flappy Duck Button
+    pygame.draw.rect(screen, (255, 255, 255), flappy_button)
+    pygame.draw.rect(screen, (0, 0, 0), flappy_button, 4)
+    flappy_text = font.render("Flappy Duck", True, (0, 0, 0))
+    screen.blit(flappy_text, (flappy_button.x + 40, flappy_button.y + 15))
+
+    # Fußballspiel Button
+    pygame.draw.rect(screen, (255, 255, 255), soccer_button)
+    pygame.draw.rect(screen, (0, 0, 0), soccer_button, 4)
+    soccer_text = font.render("Fußballspiel", True, (0, 0, 0))
+    screen.blit(soccer_text, (soccer_button.x + 30, soccer_button.y + 15))
+
+    pygame.display.update()
+    clock.tick(60)
+
+    # Events abfragen
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-        elif event.type == pygame.MOUSEBUTTONDOWN:
-            if flappy_rect.collidepoint(event.pos):
-                Game().run()
-            elif fussball_rect.collidepoint(event.pos):
-                TestFinal.start_fussballspiel()
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if flappy_button.collidepoint(event.pos):
+                pygame.quit()
+                subprocess.call(["python", "src/game.py"])  
+                sys.exit()
+            elif soccer_button.collidepoint(event.pos):
+                pygame.quit()
+                subprocess.call(["python", "TestFinal.py"])
+                sys.exit()

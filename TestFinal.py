@@ -1,7 +1,19 @@
 # Bibliotheken importieren
+# Bibliotheken importieren
 import pygame
 import sys
 import random
+import os
+
+#  Hilfsfunktion für Asset-Pfade
+
+def asset(filename):
+    base = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fussball_assets")
+    path = os.path.join(base, filename)
+    if not os.path.isfile(path):
+        print("[FEHLT]", path)
+    return path
+
 
 # Pygame initialisieren
 pygame.init()
@@ -24,14 +36,14 @@ GRAY = (50, 50, 50)
 
 # Sound initialisieren und laden
 pygame.mixer.init()
-kick_sound = pygame.mixer.Sound('fussball_assets/kick.wav')
-goal_sound = pygame.mixer.Sound('fussball_assets/goal.wav')
-goal_sound2 = pygame.mixer.Sound('fussball_assets/goal2.wav')
-goal_sound3 = pygame.mixer.Sound('fussball_assets/goal3.wav')
-victory_sound = pygame.mixer.Sound('fussball_assets/victory.wav')
+kick_sound = pygame.mixer.Sound(asset('kick.wav'))
+goal_sound = pygame.mixer.Sound(asset('goal.wav'))
+goal_sound2 = pygame.mixer.Sound(asset('goal2.wav'))
+goal_sound3 = pygame.mixer.Sound(asset('goal3.wav'))
+victory_sound = pygame.mixer.Sound(asset('victory.wav'))
 
 # Hintergrundmusik laden und abspielen
-pygame.mixer.music.load('fussball_assets/background.wav')
+pygame.mixer.music.load(asset('background.wav'))
 pygame.mixer.music.play(-1)  # Endlosschleife
 pygame.mixer.music.set_volume(0.1)
 volume = 0.1  # Anfangslautstärke
@@ -39,26 +51,26 @@ volume = 0.1  # Anfangslautstärke
 # Hintergrundbilder laden und anpassen
 background_images = []
 for i in range(1, 4):
-    bg = pygame.image.load(f'fussball_assets/background{i}.jpg')
+    bg = pygame.image.load(asset(f'background{i}.jpg'))
     bg = pygame.transform.scale(bg, (screen_width, game_field_height))
     background_images.append(bg)
 
 # Menü-Hintergrund laden
-menu_background = pygame.image.load('fussball_assets/menu_background.jpg')
+menu_background = pygame.image.load(asset('menu_background.jpg'))
 menu_background = pygame.transform.scale(menu_background, (screen_width, screen_height))
 
 # Spielerbilder laden und skalieren
 player_images = []
 player_size = 50
 for i in range(1, 8):
-    img = pygame.image.load(f'fussball_assets/player{i}.png')
+    img = pygame.image.load(asset(f'player{i}.png'))
     img = pygame.transform.scale(img, (player_size, player_size))
     player_images.append(img)
 
 # Teamlogos laden und skalieren
-logo1 = pygame.image.load('fussball_assets/logo_team1.png')
+logo1 = pygame.image.load(asset('logo_team1.png'))
 logo1 = pygame.transform.scale(logo1, (40, 40))
-logo2 = pygame.image.load('fussball_assets/logo_team2.png')
+logo2 = pygame.image.load(asset('logo_team2.png'))
 logo2 = pygame.transform.scale(logo2, (40, 40))
 
 # Startmenü zur Moduswahl
